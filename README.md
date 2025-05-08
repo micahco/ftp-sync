@@ -8,4 +8,3 @@ Usage: `ftp-sync -h`
 ## Highlights
 
 - Implements inorder tree traversal for navigating the FTP file tree.
-# ftp-sync
