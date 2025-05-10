@@ -27,6 +27,11 @@ func main() {
 	flag.Parse()
 
 	args := flag.Args()
+	if len(args) != 3 {
+		flag.Usage()
+		os.Exit(1)
+	}
+
 	addr := args[0]
 	source := args[1]
 	dest := args[2]
@@ -95,12 +100,12 @@ func traverse(conn *ftp.ServerConn, dir string) (map[string]bool, error) {
 	var inorder func(path string) error
 	inorder = func(path string) error {
 		if err := conn.ChangeDir(path); err != nil {
-			return fmt.Errorf("failed to change to directory %s: %w", dir, err)
+			return fmt.Errorf("failed to change to directory %s: %w", path, err)
 		}
 
 		entries, err := conn.List(".")
 		if err != nil {
-			return fmt.Errorf("failed to list directory %s: %w", dir, err)
+			return fmt.Errorf("failed to list directory %s: %w", path, err)
 		}
 
 		for _, entry := range entries {
